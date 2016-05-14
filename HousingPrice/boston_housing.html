@@ -689,9 +689,9 @@ Ensure that you have executed the code block once you are done. You'll know the 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
-Grid search algorithm is used for parameter tuning. If we have multiple parameters and want to see which parameter performs well. We used grid search algorithm to get the optimal output.
-Grid search algorithm gives bad performance in high dimension.</p>
-<p>In our case, we are passing parameters to GridSearchCV as max_depth of decision tree. Grid search algo find</p>
+Grid search algorithm is used for parameter tuning. It creates a grid of parameters and find the optimial evaluation params.
+In our case, we are passining list of max_depth of decision tree as param to GridSearchCV. Grid search algorithm evaluate model performance with max_depth of tree as 1, 2 , 3, 4.. and so on and retruns the optimal max_depth on which our model performs optimally.</p>
+<p>Here we are using regressor as DecisionTreeRegressor(), which tells grid search to use decision tree algorithm to fit the model, scoring function to evaulation performance of model and list of params on which grid search  performs. For each  param value algorithm fit the model using regressor and then evaluate performance based on scoring function. Finally it returns optimal model</p>
 
 </div>
 </div>
@@ -1869,6 +1869,8 @@ Second learning curve:</p>
 <li>Max depth is 1<ul>
 <li>low model complexity -&gt; low variance and high bias</li>
 <li>fit for this model based on given parameters in training, if we increase parameters then this model will not perform well. It is sufference from high bias, this model is biased towards given parameters.</li>
+<li>with max_depth 1 in decision tree we are using one parameter let say number of room, of number of room is more then high price else number of room is less then low price, with this parameter our model is biased towared number of room parameter, which is not correct. There could be other features that influence decision making. </li>
+<li>Therefore, with increase in training data there is no improvement in error. Model is not using other features present in data it is biased toward few features and trained on those few features. This model has bad accuracy good model should use all relevant features (which contribute in better prediction).</li>
 </ul>
 </li>
 <li>Max depth = 10<ul>
@@ -2274,6 +2276,12 @@ aLRIZCGEEBotElkIIYRG+xtyVC9K6hsX2gAAAABJRU5ErkJggg==
 <li>if training error is decreasing and testing error starts increasing then model is moving towards overfitting.</li>
 <li>best model is at the testing error global minimum, which is model 3.</li>
 <li>at global minimum of test error we will get best bias-variance tradeoff</li>
+<li>with simple complexity, let say at max depth 1, model is not using all features to predict the output. In this scenario there are other important features, contributing to output are left out. It is not an optimal model, it is biased towards few features hence will do poor prediction</li>
+<li>with increase in complexity, max depth, of our decision tree, our model starts using other features and does better predictions. There we can see decrease in test error and training error.</li>
+<li>At certain point, we see optimial prediction where test error is at minimum. It is the best generalization of our data and this model does good prediction</li>
+<li>more complex more, inclinded towards overfitting, with increase in max-depth, model try to include all training points in its decision boundry. Our data is limit, if our model use that data and fit itself, then for new data it will do bad prediction, because there could be other factor which influence the output and our training data does not caputre these factors.</li>
+<li>with increase in complexity training error keeps on decreasing. Our training data does not cover all the posibilites to prediction house price and it has some noise also. More complex model fit on these finite data. When it see some new data it does poor prediction, because there could be other factors influencing housing price, which our training data does not have. Here model fails to generalize input data.</li>
+<li>Therefore, we see increase in test error and decrease in training error, model keeps on fitting training data and come up with a specific decision boundry rather than a generalized one. This is the case of overfitting and low bias high variance.</li>
 </ul>
 
 </div>
